@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -31,8 +32,10 @@ public class StudentService {
     public void deleteStudent(long id) {
         studentRepository.deleteById(id);
     }
+    public List<Student> findByAge(int age) {
+        List<Student> byAge = studentRepository.findByAge(age);
+        return byAge;
 
-    public Collection<Student> findByAge() {
-        return studentRepository.findAll();
+
     }
 }
