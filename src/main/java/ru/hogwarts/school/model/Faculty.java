@@ -1,10 +1,9 @@
 package ru.hogwarts.school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +11,12 @@ public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String name, color;
+    private String name;
+    private String color;
+
+    @OneToMany(mappedBy = "faculty")
+    @JsonIgnore
+    private List<Student> student;
 
     public Faculty() {
     }

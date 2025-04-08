@@ -63,5 +63,8 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-
+    @GetMapping("/all")
+    public ResponseEntity<Collection<Faculty>> getAllFaculties() {
+        return ResponseEntity.ok(facultyService.getAllFaculties());
+    }
 }

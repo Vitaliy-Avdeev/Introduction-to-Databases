@@ -32,10 +32,14 @@ public class FacultyService {
     public void deleteFaculty(long id) {
         facultyRepository.deleteById(id);
     }
+
     public List<Faculty> findByColor(String color) {
         List<Faculty> byColor = facultyRepository.findByColor(color);
         return byColor;
+    }
 
-
+    public List<Faculty> getAllFaculties() {
+        List<Faculty> allFaculties = facultyRepository.findAll();
+        return allFaculties;
     }
 }

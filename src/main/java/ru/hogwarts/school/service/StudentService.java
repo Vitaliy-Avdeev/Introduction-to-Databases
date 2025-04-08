@@ -32,10 +32,22 @@ public class StudentService {
     public void deleteStudent(long id) {
         studentRepository.deleteById(id);
     }
+
+    public Collection<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public Collection<Student> getStudentsByAge(int age) {
+        return studentRepository.findAll().stream().filter(s -> s.getAge() == age).toList();
+    }
+
     public List<Student> findByAge(int age) {
         List<Student> byAge = studentRepository.findByAge(age);
         return byAge;
+    }
 
-
+    public List<Student> getStudentsByAgeBetween(int minAge, int maxAge) {
+        List<Student> byAgeBetween = studentRepository.findByAgeBetween(minAge, maxAge);
+        return byAgeBetween;
     }
 }
