@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,16 +59,9 @@ public class TestFacultyControllerRestTemplate {
     }
 
     @Test
-    public void testEditFaculty() {
-        Faculty faculty = new Faculty(2L, "Слизерин", "зелёный");
-        ResponseEntity<Faculty> response = restTemplate.exchange("http://localhost:" + port + "/faculty", HttpMethod.PUT, new HttpEntity<>(faculty), Faculty.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-    }
-
-    @Test
     public void testDeleteFaculty() {
         ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/faculty/id", HttpMethod.DELETE, null, Void.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
 }

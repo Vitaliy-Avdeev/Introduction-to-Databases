@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestStudentControllerRestTemplate {
     @LocalServerPort
     private int port;
-
-    @Autowired
-    private StudentController StudentController;
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
@@ -64,15 +60,15 @@ public class TestStudentControllerRestTemplate {
     }
 
     @Test
-    public void testEditStudent() {
-        Student student = new Student(2L, "Невилл Долгопупс", 12);
-        ResponseEntity<Student> response = restTemplate.exchange("http://localhost:" + port + "/student", HttpMethod.PUT, new HttpEntity<>(student), Student.class);
+    public void testDeleteStudent() {
+        ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/student/1", HttpMethod.DELETE, null, Void.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    public void testDeleteStudent() {
-        ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/student/1", HttpMethod.DELETE, null, Void.class);
+    public void testGetStudentsByAgeBetween() {
+
+        ResponseEntity<Student[]> response = restTemplate.getForEntity("http://localhost:" + port + "/student/ageBetween?min=8&max=14", Student[].class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

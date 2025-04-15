@@ -27,7 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/student")
@@ -86,11 +86,10 @@ public class StudentController {
     }
 
     @GetMapping("/ageBetween")
-    public List<Student> getStudentsByAgeBetween(@RequestParam int minAge, @RequestParam int maxAge) {
-        List<Student> studentsByAgeBetween = studentService.getStudentsByAgeBetween(minAge, maxAge);
-        return studentsByAgeBetween;
-    }
+    public Collection<Student> getStudentsByAgeBetween(@RequestParam int min, @RequestParam int max) {
+        return studentService.getStudentsByAgeBetween(min, max);
 
+    }
     @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {
         if (avatar.getSize() > 1024 * 300) {
