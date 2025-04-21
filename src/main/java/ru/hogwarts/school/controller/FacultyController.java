@@ -49,13 +49,13 @@ public class FacultyController {
         return ResponseEntity.ok(foundFaculty);
     }
 
-    @DeleteMapping("/faculty/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/color")
+    @GetMapping("/color/{color}")
     public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
         if (color != null && !color.isBlank()) {
             return ResponseEntity.ok(facultyService.findByColor(color));

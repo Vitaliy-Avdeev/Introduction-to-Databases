@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,20 +28,24 @@ public class FacultyService {
     }
 
     public Faculty editFaculty(Faculty faculty) {
-        return facultyRepository.save(faculty);
+        Faculty existing = facultyRepository.findById(faculty.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Faculty not found"));
+
+        existing.setName(existing.getName());
+        existing.setColor(existing.getColor());
+
+        return facultyRepository.save(existing);
     }
 
     public void deleteFaculty(long id) {
         facultyRepository.deleteById(id);
     }
 
-    public List<Faculty> findByColor(String color) {
-        List<Faculty> byColor = facultyRepository.findByColor(color);
-        return byColor;
+    public Collection<Faculty> findByColor(String color) {
+        return facultyRepository.findByColor(color);
     }
 
-    public List<Faculty> getAllFaculties() {
-        List<Faculty> allFaculties = facultyRepository.findAll();
-        return allFaculties;
+    public Collection<Faculty> getAllFaculties() {
+        return facultyRepository.findAll();
     }
 }
