@@ -2,24 +2,19 @@ package ru.hogwarts.school.service;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import javax.imageio.ImageIO;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.school.model.Avatar;
-import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.*;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 import jakarta.transaction.Transactional;
@@ -62,6 +57,11 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public List<Avatar> getAllStudent(Integer pageNamber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNamber - 1, pageSize);
+        return avatarRepository.findAll(pageRequest).getContent();
+    }
+
     public Collection<Student> getStudentsByAge(int age) {
         return studentRepository.findAll().stream().filter(s -> s.getAge() == age).toList();
     }
@@ -74,6 +74,18 @@ public class StudentService {
     public List<Student> getStudentsByAgeBetween(int minAge, int maxAge) {
         List<Student> byAgeBetween = studentRepository.findByAgeBetween(minAge, maxAge);
         return byAgeBetween;
+    }
+
+    public List<FullListOfStudents> getSumStudents() {
+        return studentRepository.getSumStudents();
+    }
+
+    public List<AverageAgeOfStudents> getAverageAgeOfStudents() {
+        return studentRepository.getAverageAgeOfStudents();
+    }
+
+    public List<Student> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
     }
 
     public Avatar findAvatar(long studentId) {
