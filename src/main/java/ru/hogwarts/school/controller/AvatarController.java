@@ -9,7 +9,6 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/student")
 public class AvatarController {
