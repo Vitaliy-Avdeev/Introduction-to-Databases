@@ -3,13 +3,10 @@ package ru.hogwarts.school.model;
 import java.util.Arrays;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "avatar")
 public class Avatar {
     @Id
     @GeneratedValue

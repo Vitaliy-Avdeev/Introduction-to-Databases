@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.school.model.Avatar;
-import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.*;
 import ru.hogwarts.school.service.StudentService;
 
 import java.io.IOException;
@@ -27,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
 @RestController
@@ -88,8 +88,23 @@ public class StudentController {
     @GetMapping("/ageBetween")
     public Collection<Student> getStudentsByAgeBetween(@RequestParam int min, @RequestParam int max) {
         return studentService.getStudentsByAgeBetween(min, max);
-
     }
+
+    @GetMapping("/sum_all_Students")
+    public ResponseEntity<List<FullListOfStudents>> getSumStudents() {
+        return ResponseEntity.ok(studentService.getSumStudents());
+    }
+
+    @GetMapping("/Average_Age_Of_Students")
+    public ResponseEntity<List<AverageAgeOfStudents>> getAverageAgeOfStudents() {
+        return ResponseEntity.ok(studentService.getAverageAgeOfStudents());
+    }
+
+    @GetMapping("/Last_Five_Students")
+    public ResponseEntity<List<Student>> getLastFiveStudents() {
+        return ResponseEntity.ok(studentService.getLastFiveStudents());
+    }
+
     @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {
         if (avatar.getSize() > 1024 * 300) {
