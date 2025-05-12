@@ -104,6 +104,11 @@ public class StudentController {
     public ResponseEntity<List<Student>> getLastFiveStudents() {
         return ResponseEntity.ok(studentService.getLastFiveStudents());
     }
+    @GetMapping("/student/name/{name}")
+    public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name) {
+        List<Student> students = studentService.getStudentByName(name);
+        return ResponseEntity.ok(students);
+    }
 
     @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {

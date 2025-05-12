@@ -87,6 +87,9 @@ public class StudentService {
     public List<Student> getLastFiveStudents() {
         return studentRepository.getLastFiveStudents();
     }
+    public List<Student> getStudentByName(String name) {
+        return studentRepository.getStudentsByName(name);
+    }
 
     public Avatar findAvatar(long studentId) {
         return avatarRepository.findByStudentId(studentId).orElseThrow();
