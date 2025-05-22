@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-251.25410.129">
     <data-source name="postgres@localhost" uuid="787de99a-03b4-46d0-9dab-a39e05ab8940">
-      <database-info product="PostgreSQL" version="17.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="17.4" exact-driver-version="42.7">
+      <database-info product="PostgreSQL" version="16.8" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.8" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
@@ -10,22 +10,28 @@
       <user-name>student</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" qname="@">
-            <node kind="schema" qname="@" />
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="hogwarts" />
           </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>
     <data-source name="hogwarts@localhost" uuid="5f90f808-91ea-4660-83be-3f776397234e">
-      <database-info product="PostgreSQL" version="17.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="17.4" exact-driver-version="42.7">
+      <database-info product="PostgreSQL" version="16.8" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.8" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <user-name>student</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" qname="@">
-            <node kind="schema" qname="@" />
+          <node negative="1">
+            <node kind="database" negative="1" />
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
           </node>
         </introspection-scope>
       </schema-mapping>

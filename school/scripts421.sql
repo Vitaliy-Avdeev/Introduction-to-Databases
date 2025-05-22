@@ -1,18 +1,14 @@
-ALTER TABLE student
-    ADD CONSTRAINT uc_student_name UNIQUE (name);
+alter table student
+    add constraint age_constraint check (age > 16),
+    alter column name set not null,
+    add constraint name_unique unique (name);
+alter table student alter column name set default 20;
 
-ALTER TABLE student
-    ADD CONSTRAINT chk_student_age CHECK (age >= 16);
 
-ALTER TABLE faculty
-    ADD CONSTRAINT uc_faculty_name_color UNIQUE (name, color);
+CREATE TABLE IF NOT EXISTS Faculty
+(id SERIAL PRIMARY KEY,  name VARCHAR(255) UNIQUE NOT NULL,
+ color VARCHAR(50) NOT NULL);
 
-ALTER TABLE student
-    MODIFY name VARCHAR(255) NOT NULL;
-
-ALTER TABLE faculty
-    MODIFY name VARCHAR(255) NOT NULL,
-    MODIFY color VARCHAR(255) NOT NULL;
-
-ALTER TABLE student
-    ALTER COLUMN age SET DEFAULT 20;
+CREATE TABLE IF NOT EXISTS Student
+(id SERIAL PRIMARY KEY,  name VARCHAR(255) NOT NULL,
+ age INT NOT NULL,  faculty_id INT, FOREIGN KEY (faculty_id) REFERENCES Faculty(id) ON DELETE SET NULL);

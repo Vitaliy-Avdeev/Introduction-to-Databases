@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="updateChangeLogPath" value="school/src/main/resources/liquibase/changelog-master.yml" />
+    <option name="updateDbConnectionName" value="5f90f808-91ea-4660-83be-3f776397234e" />
+  </component>
+</project>

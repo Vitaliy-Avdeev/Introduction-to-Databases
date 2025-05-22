@@ -1,5 +1,8 @@
-SELECT s.name AS student_name, s.age, f.name AS faculty_name
-FROM student s JOIN faculty f ON s.faculty_id = f.id;
+SELECT student.name,student.age, faculty_id, faculty.name
+from student
+         INNER JOIN faculty on student.faculty_id = faculty.id;
 
-SELECT s.name, s.age FROM student s join public.avatar a on s.id = a.student_id
-WHERE a.student_id IS NOT NULL;
+
+SELECT student.name, avatar.file_path, avatar.file_size, avatar.media_type ,student_id
+from avatar
+         INNER JOIN student on avatar.student_id = student.id;

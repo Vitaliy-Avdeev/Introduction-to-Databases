@@ -1,15 +1,4 @@
-CREATE TABLE Car (
-    id SERIAL PRIMARY KEY,
-    brand VARCHAR(100) NOT NULL,
-    model VARCHAR(100) NOT NULL,
-    price NUMERIC(10, 2) NOT NULL
-);
-
-CREATE TABLE Person (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    age INTEGER NOT NULL CHECK (age >= 0),
-    has_license BOOLEAN NOT NULL,
-    car_id INTEGER,
-    CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES Car(id)
-);
+create table Person(id int primary key, name varchar(50), age int, has_driver_license boolean);
+create table Car(id int primary key, brand varchar(50), model varchar(50), price decimal(8, 2));
+create table PersonCar
+(person_id int, car_id int, primary key (person_id, car_id), foreign key (person_id) references Person (id), foreign key (car_id) references Car (id));
