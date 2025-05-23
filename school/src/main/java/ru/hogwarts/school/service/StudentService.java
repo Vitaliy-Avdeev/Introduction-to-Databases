@@ -84,6 +84,37 @@ public class StudentService {
         logger.info("Работает метод getStudentByName с именеем = {}", name);
         return studentRepository.getStudentsByName(name);
     }
+    public void getStudentsPrintParallel()  {
+        logger.info("Был вызван метод для получения имен всех студентов в параллельном режиме..");
+
+        List<Student> students = studentRepository.findAll();
+
+        System.out.println("Первый студент -" + students.get(0).getName());
+        System.out.println("Второй студент -" + students.get(1).getName());
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Третий студент -" + students.get(2).getName());
+            System.out.println("Четвертый студент -" + students.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Пятый студент -" + students.get(4).getName());
+            System.out.println("Шестой студент -" + students.get(5).getName());
+        }).start();
+
+    }
+
+
 
 }
 
