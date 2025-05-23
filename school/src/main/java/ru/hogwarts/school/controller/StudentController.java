@@ -16,21 +16,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.hogwarts.school.model.*;
+import ru.hogwarts.school.repositiry.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
+    private final StudentRepository studentRepository;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentRepository studentRepository) {
         this.studentService = studentService;
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping("/id/{id}")
@@ -104,5 +108,31 @@ public class StudentController {
     public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name) {
         List<Student> students = studentService.getStudentByName(name);
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/namesStartingWithLetterA")
+    public ResponseEntity<List<String>> getStudentsNamesStartingWithLetterA() {
+        List<Student> students = studentRepository.findAll();
+
+        List<String> namesStartingWithLetterA = students.stream()
+                .filter(student -> student.getName().toUpperCase().startsWith("Г"))
+                .<String>map(Student::getName)
+                .map(String::toUpperCase)
+                .sorted()
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(namesStartingWithLetterA);
+
+    }
+
+    @GetMapping("/theAverageAgeOfAllStudents")
+    public ResponseEntity<Double> getTheAverageAgeOfAllStudents() {
+        List<Student> students = studentRepository.findAll();
+
+        double theAverageAgeOfAllStudents = students.stream()
+                .mapToDouble(Student::getAge)
+                .average()
+                .orElse(0);
+        return ResponseEntity.ok(theAverageAgeOfAllStudents);
     }
 }
