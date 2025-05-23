@@ -11,17 +11,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repositiry.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+
+import java.util.Comparator;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
+    private final FacultyRepository facultyRepository;
 
-    public FacultyController(FacultyService facultyService) {
+    public FacultyController(FacultyService facultyService, FacultyRepository facultyRepository) {
         this.facultyService = facultyService;
+        this.facultyRepository = facultyRepository;
     }
 
     @GetMapping("/id/{id}")
@@ -66,5 +73,17 @@ public class FacultyController {
     @GetMapping("/name-and-color")
     public ResponseEntity<Collection<Faculty>> getFacultyByNameAndColor(@PathVariable String name, @PathVariable String color) {
         return ResponseEntity.ok(facultyService.getFacultyByNameAndColor(name, color));
+    }
+
+    @GetMapping("/theLongestFacultyName")
+    public ResponseEntity<String> getTheLongestFacultyName() {
+        List<Faculty> faculties = facultyRepository.findAll();
+
+        String theLongestFacultyName = faculties.stream()
+
+                .<String>map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse(null);
+        return ResponseEntity.ok(theLongestFacultyName);
     }
 }
