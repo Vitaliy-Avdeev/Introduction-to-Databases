@@ -135,4 +135,10 @@ public class StudentController {
                 .orElse(0);
         return ResponseEntity.ok(theAverageAgeOfAllStudents);
     }
+    @GetMapping("/students/print-parallel")
+    public void getStudentsPrintParallel() {
+        studentService.getStudentsPrintParallel();
+
+    }
+
 }
