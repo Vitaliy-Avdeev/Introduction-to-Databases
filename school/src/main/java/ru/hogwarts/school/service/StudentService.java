@@ -113,6 +113,38 @@ public class StudentService {
         }).start();
 
     }
+    private synchronized String printNameOfStudent(Student student){
+        return student.getName();
+    }
+
+    public void getStudentsPrintSynchronized()  {
+        logger.info("Был вызван метод для получения имен всех студентов в синхронном режиме..");
+
+        List<Student> students = studentRepository.findAll();
+
+        System.out.println("Первый студент -" + printNameOfStudent(students.get(0)));
+        System.out.println("Второй студент -" + printNameOfStudent(students.get(1)));
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Третий студент -" + printNameOfStudent(students.get(2)));
+            System.out.println("Четвертый студент -" + printNameOfStudent(students.get(3)));
+        }).start();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Пятый студент -" + printNameOfStudent(students.get(4)));
+            System.out.println("Шестой студент -" + printNameOfStudent(students.get(5)));
+        }).start();
+    }
 
 
 
