@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ru.hogwarts.school.model.*;
 
-import org.slf4j.Logger;
+        import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.hogwarts.school.repositiry.StudentRepository;
@@ -84,7 +84,8 @@ public class StudentService {
         logger.info("Работает метод getStudentByName с именеем = {}", name);
         return studentRepository.getStudentsByName(name);
     }
-    public void getStudentsPrintParallel()  {
+
+    public void getStudentsPrintParallel() {
         logger.info("Был вызван метод для получения имен всех студентов в параллельном режиме..");
 
         List<Student> students = studentRepository.findAll();
@@ -113,11 +114,12 @@ public class StudentService {
         }).start();
 
     }
-    private synchronized String printNameOfStudent(Student student){
+
+    private synchronized String printNameOfStudent(Student student) {
         return student.getName();
     }
 
-    public void getStudentsPrintSynchronized()  {
+    public void getStudentsPrintSynchronized() {
         logger.info("Был вызван метод для получения имен всех студентов в синхронном режиме..");
 
         List<Student> students = studentRepository.findAll();
@@ -145,8 +147,5 @@ public class StudentService {
             System.out.println("Шестой студент -" + printNameOfStudent(students.get(5)));
         }).start();
     }
-
-
-
 }
 
