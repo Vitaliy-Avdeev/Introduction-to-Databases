@@ -122,7 +122,6 @@ public class StudentController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(namesStartingWithLetterA);
-
     }
 
     @GetMapping("/theAverageAgeOfAllStudents")
@@ -135,4 +134,16 @@ public class StudentController {
                 .orElse(0);
         return ResponseEntity.ok(theAverageAgeOfAllStudents);
     }
+
+    @GetMapping("/students/print-parallel")
+    public void getStudentsPrintParallel() {
+        studentService.getStudentsPrintParallel();
+    }
+
+    @GetMapping("/students/print-synchronized")
+    public void getStudentsPrintSynchronized() {
+        studentService.getStudentsPrintSynchronized();
+
+    }
+
 }
